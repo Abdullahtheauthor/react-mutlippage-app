@@ -1,24 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Route, Routes, Link } from "react-router-dom";
+import PostLists from "./PostList";
+import Home from "./Home";
+import Hello from "./Hello";
+import PostDetails from "./PostDetails";
+import { postContext } from "./contexts/PostContexts";
+import NotFound from "./NotFound";
 
 function App() {
+  const postsData = [
+    {
+      id: 1,
+      title: "Post 1",
+      body: "This is post 1",
+    },
+    {
+      id: 2,
+      title: "Post 2",
+      body: "This is post 2",
+    },
+    {
+      id: 3,
+      title: "Post 3",
+      body: "This is post 3 kjaklsjfdk jlasjflajsf",
+    },
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <postContext.Provider value={postsData}>
+      <div className="App">
+        {/* Routes */}
+        <div>
+          <Link to="/home">
+            <button style={{ fontSize: "20px" }}>Home</button>
+          </Link>
+          <Link to="/hello">
+            <button style={{ fontSize: "20px" }}>Hello</button>
+          </Link>
+
+          <Link to="/posts">
+            <button style={{ fontSize: "20px" }}>Posts</button>
+          </Link>
+        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/hello" element={<Hello />} />
+          <Route path="/posts" element={<PostLists />} />
+          <Route path="/posts/:postId" element={<PostDetails />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+    </postContext.Provider>
   );
 }
 
