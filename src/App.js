@@ -6,6 +6,8 @@ import Hello from "./Hello";
 import PostDetails from "./PostDetails";
 import { postContext } from "./contexts/PostContexts";
 import NotFound from "./NotFound";
+import NewPost from "./NewPost";
+import DeletePost from "./DeletePost";
 
 function App() {
   const postsData = [
@@ -46,8 +48,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/hello" element={<Hello />} />
-          <Route path="/posts" element={<PostLists />} />
-          <Route path="/posts/:postId" element={<PostDetails />} />
+          <Route path="/posts">
+            <Route path=":postId" element={<PostDetails />} />
+            <Route index element={<PostLists />} />
+            <Route path="new" element={<NewPost />} />
+            <Route path="delete" element={<DeletePost />} />
+          </Route>
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
